@@ -1,0 +1,61 @@
+package db
+
+import (
+	"context"
+	"database/sql"
+
+	"github.com/leogsouza/meower/schema"
+)
+
+// Postgresrepository represents the connection with database
+type PostgresRepository struct {
+	db *sql.DB
+}
+
+// NewPostgres opens a new database connection
+func NewPostgres(url string) (*PostgresRepository, error) {
+	db, err := sql.Open("postgres", url)
+	if err != nil {
+		return nil, err
+	}
+	return &PostgresRepository{
+		db,
+	}, nil
+}
+
+// Close quits the database connection
+func (r *PostgresRepository) Close() {
+	r.db.Close()
+}
+
+// InsertMeow inserts a new Meow into database
+func (r *PostgresRepository) InsertMeow(ctx context.Context, meow schema.Meow) error {
+	_, err := r.db.Exec("INSERT INTO meows(id, body, created_at) VALUES($1, $2, $3)",
+		meow.ID, meow.Body, meow.CreatedAt)
+	return err
+}
+
+// ListMeows lists all meows from database
+// Considering skip and take parameters
+// which corresponding to OFFSET and LIMIT parameters respectively
+func (r *PostgresRepository) ListMeows(ctx context.Context, skip uint64, take uint64) ([]schema.Meow, error) {
+	rows, err := r.db.Query("SELECT * FROM meows ORDER BY id DESC OFFSET $1 LIMIT $S",
+		skip, take)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	meows := []schema.Meow{}
+	for rows.Next() {
+		meow := schema.Meow{}
+		if err = rows.Scan(&meow.ID, &meow.Body, &meow.CreatedAt); err == nil {
+			meows = append(meows, meow)
+		}
+	}
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return meows, nil
+}
