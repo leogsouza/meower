@@ -7,7 +7,7 @@ import (
 	"github.com/leogsouza/meower/schema"
 )
 
-// Postgresrepository represents the connection with database
+// PostgresRepository represents the connection with database
 type PostgresRepository struct {
 	db *sql.DB
 }
