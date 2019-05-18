@@ -22,6 +22,7 @@ func newRouter() (router *mux.Router) {
 	return
 }
 
+// Config holds environment configuration
 type Config struct {
 	PostgresDB       string `envconfig:"POSTGRES_DB"`
 	PostgresUser     string `envconfig:"POSTGRES_USER"`
