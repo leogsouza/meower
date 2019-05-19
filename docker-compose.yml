@@ -50,3 +50,11 @@ services:
       POSTGRES_DB: "meower"
       POSTGRES_USER: "meower"
       POSTGRES_PASSWORD: "123456"
+  nginx:
+    build: "./nginx"
+    ports:
+      - "8080:80"
+    depends_on: 
+      - "meow"
+      - "query"
+      - "pusher"
