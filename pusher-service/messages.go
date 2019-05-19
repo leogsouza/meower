@@ -2,10 +2,12 @@ package main
 
 import "time"
 
+// Type of message created
 const (
 	KindMeowCreated = iota + 1
 )
 
+// MeowCreatedMessage contanins information of MeowCreated
 type MeowCreatedMessage struct {
 	Kind      uint32    `json:"kind"`
 	ID        string    `json:"id"`

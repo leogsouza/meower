@@ -8,6 +8,7 @@ require (
 	github.com/google/go-cmp v0.3.0 // indirect
 	github.com/gorilla/handlers v1.4.0 // indirect
 	github.com/gorilla/mux v1.7.2
+	github.com/gorilla/websocket v1.4.0
 	github.com/kelseyhightower/envconfig v1.3.0
 	github.com/mailru/easyjson v0.0.0-20190403194419-1ea4449da983 // indirect
 	github.com/nats-io/gnatsd v1.4.1 // indirect
