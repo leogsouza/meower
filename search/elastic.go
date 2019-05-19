@@ -27,6 +27,11 @@ func NewElastic(url string) (*ElasticRepository, error) {
 	return &ElasticRepository{client}, nil
 }
 
+// Close closes the connection with Elasticsearch
+func (r *ElasticRepository) Close() {
+
+}
+
 // InsertMeow inserts a new meow into search engine
 func (r *ElasticRepository) InsertMeow(ctx context.Context, meow schema.Meow) error {
 	_, err := r.client.Index().
