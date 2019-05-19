@@ -16,6 +16,7 @@ import (
 	"github.com/tinrab/kit/retry"
 )
 
+// Config contains environment configurations
 type Config struct {
 	PostgresDB           string `envconfig:"POSTGRES_DB"`
 	PostgresUser         string `envconfig:"POSTGRES_USER"`

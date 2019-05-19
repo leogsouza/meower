@@ -63,12 +63,12 @@ func (hub *Hub) handleWebSocket(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		http.Error(w, "could not upgrade", http.StatusInternalServerError)
 		return
-
-		client := newClient(hub, socket)
-		hub.register <- client
-
-		go client.write()
 	}
+	client := newClient(hub, socket)
+	hub.register <- client
+
+	go client.write()
+
 }
 
 func (hub *Hub) onConnect(client *Client) {

@@ -12,6 +12,7 @@ import (
 	"github.com/kelseyhightower/envconfig"
 )
 
+// Config contains environment configurations
 type Config struct {
 	NatsAddress string `envconfig:"NATS_ADDRESS"`
 }
