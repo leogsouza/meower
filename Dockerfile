@@ -4,12 +4,13 @@ FROM golang:1.12-alpine as build
 # Install some dependencies needed to build the project
 RUN apk add --update --no-cache bash ca-certificates git gcc g++ libc-dev
 
-WORKDIR /app
+WORKDIR /meower
 
 COPY util util
 COPY event event
 COPY db db
 COPY schema schema
+COPY search search
 COPY meow-service meow-service
 COPY query-service query-service
 COPY pusher-service pusher-service
@@ -26,9 +27,10 @@ COPY go.sum .
 RUN go mod download
 
 # And compile the project
-# RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o /go/bin/app
+# RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o /go/bin/meower
 RUN go install ./...
 
 FROM scratch
 # Finally we copy the statically compiled Go binary.
-COPY --from=build /go/bin/app /go/bin/app
+WORKDIR /usr/bin
+COPY --from=build /go/bin .
