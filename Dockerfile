@@ -4,7 +4,15 @@ FROM golang:1.12-alpine as build
 # Install some dependencies needed to build the project
 RUN apk add --update --no-cache bash ca-certificates git gcc g++ libc-dev
 
-WORKDIR /meower
+WORKDIR /app
+
+COPY util util
+COPY event event
+COPY db db
+COPY schema schema
+COPY meow-service meow-service
+COPY query-service query-service
+COPY pusher-service pusher-service
 
 # We want to populate the module cache based on the go.{mod,sum} files.
 COPY go.mod .
@@ -17,18 +25,10 @@ COPY go.sum .
 # (or when we add another docker instruction this line)
 RUN go mod download
 
-COPY util util
-COPY event event
-COPY db db
-COPY schema schema
-COPY meow-service meow-service
-COPY query-service query-service
-COPY pusher-service pusher-service
-
 # And compile the project
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o /go/bin/meower
+# RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o /go/bin/app
+RUN go install ./...
 
 FROM scratch
 # Finally we copy the statically compiled Go binary.
-WORKDIR /usr/bin
-COPY --from=build /go/bin .
+COPY --from=build /go/bin/app /go/bin/app
