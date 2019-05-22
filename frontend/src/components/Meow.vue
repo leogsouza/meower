@@ -13,6 +13,7 @@
 
 <script>
 import timeago from 'timeago.js';
+console.log('timeago', timeago);
 export default {
   props: ['meow'],
   computed: {
@@ -20,7 +21,7 @@ export default {
       return this.meow.body;
     },
     time() {
-      return timeago().format(Date.parse(this.meow.created_at));
+      return Date.parse(this.meow.created_at);
     },
   },
 };

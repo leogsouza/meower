@@ -38,7 +38,7 @@ func main() {
 	}
 
 	retry.ForeverSleep(2*time.Second, func(attempt int) error {
-		addr := fmt.Sprintf("postgres://%s:%s@postgres/%s?sslmode=disabled",
+		addr := fmt.Sprintf("postgres://%s:%s@postgres/%s?sslmode=disable",
 			cfg.PostgresUser, cfg.PostgresPassword, cfg.PostgresDB)
 		repo, err := db.NewPostgres(addr)
 		if err != nil {

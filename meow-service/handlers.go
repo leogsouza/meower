@@ -23,6 +23,7 @@ func createMeowHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Read parameters
 	body := template.HTMLEscapeString(r.FormValue("body"))
+	log.Println("Creating new meow")
 	if len(body) < 1 || len(body) > 140 {
 		util.ResponseError(w, http.StatusBadRequest, "Invalid body")
 		return

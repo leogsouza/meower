@@ -25,7 +25,7 @@ export default {
             meowBody: '',
         };
     },
-    computed: matState({
+    computed: mapState({
         meows: (state) => state.meows,
     }),
     methods: {

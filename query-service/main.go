@@ -43,7 +43,7 @@ func main() {
 
 	// Connect to PostgreSQL
 	retry.ForeverSleep(2*time.Second, func(attempt int) error {
-		addr := fmt.Sprintf("postgres://%s:%s@postgres/%s?sslmode= disable",
+		addr := fmt.Sprintf("postgres://%s:%s@postgres/%s?sslmode=disable",
 			cfg.PostgresUser, cfg.PostgresPassword, cfg.PostgresDB)
 
 		repo, err := db.NewPostgres(addr)
@@ -58,7 +58,7 @@ func main() {
 
 	// Connect to Elasticsearch
 	retry.ForeverSleep(2*time.Second, func(_ int) error {
-		es, err := search.NewElastic(fmt.Sprintf("https://%s", cfg.ElasticsearchAddress))
+		es, err := search.NewElastic(fmt.Sprintf("http://%s", cfg.ElasticsearchAddress))
 		if err != nil {
 			log.Println(err)
 			return err

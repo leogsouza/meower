@@ -30,7 +30,7 @@ RUN go mod download
 # RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o /go/bin/meower
 RUN go install ./...
 
-FROM scratch
+FROM alpine:3.7
 # Finally we copy the statically compiled Go binary.
 WORKDIR /usr/bin
 COPY --from=build /go/bin .

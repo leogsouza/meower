@@ -4,8 +4,8 @@ import (
 	"context"
 	"database/sql"
 
-	_ "github.com/lib/pq"
 	"github.com/leogsouza/meower/schema"
+	_ "github.com/lib/pq"
 )
 
 // PostgresRepository represents the connection with database
@@ -40,7 +40,7 @@ func (r *PostgresRepository) InsertMeow(ctx context.Context, meow schema.Meow) e
 // Considering skip and take parameters
 // which corresponding to OFFSET and LIMIT parameters respectively
 func (r *PostgresRepository) ListMeows(ctx context.Context, skip uint64, take uint64) ([]schema.Meow, error) {
-	rows, err := r.db.Query("SELECT * FROM meows ORDER BY id DESC OFFSET $1 LIMIT $S",
+	rows, err := r.db.Query("SELECT * FROM meows ORDER BY id DESC OFFSET $1 LIMIT $2",
 		skip, take)
 	if err != nil {
 		return nil, err
