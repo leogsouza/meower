@@ -27,9 +27,10 @@ const store = new Vuex.Store({
       console.error(event);
     },
     SOCKET_ONMESSAGE(state, message) {
-      switch(message, kind) {
+      console.log(message);
+      switch(message.kind) {
         case MESSAGE_MEOW_CREATED:
-          this.commit(CREATE_MEOW, {id: message.id, body: message.body });
+          this.commit(CREATE_MEOW, {id: message.id, body: message.body, created_at: message.created_at });
       }
     },
     [SET_MEOWS](state, meows) {
