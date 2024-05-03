@@ -1,7 +1,7 @@
 # Meower - Social Network for Cats
-Simple search app service built in go using elasticsearch. This app was built following the tutorial [Building a Microservices Application in Go Following the CQRS Pattern](https://outcrawl.com/go-microservices-cqrs-docker)
+Simple search app service built in go using elasticsearch. 
 
-## Instalation
+## Installation
 
 Clone this repository
 ```
